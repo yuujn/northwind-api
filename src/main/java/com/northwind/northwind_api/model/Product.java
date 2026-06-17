@@ -15,6 +15,9 @@ public class Product {
     private String productName;
     private Long supplierId;
     private Long categoryId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CategoryID", insertable = false, updatable = false)
+    private Category category;
     private String quantityPerUnit;
     private BigDecimal unitPrice;
     private int unitsInStock;
@@ -48,6 +51,14 @@ public class Product {
 
     public Long getCategoryId() {
         return categoryId;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public void setCategoryId(Long categoryId) {
