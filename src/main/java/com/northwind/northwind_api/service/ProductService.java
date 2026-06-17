@@ -37,4 +37,14 @@ public class ProductService {
     public List<Product> searchByName(String name) {
         return productRepository.findByProductNameContainingIgnoreCase(name);
     }
+
+    public boolean updateProduct(Long id, Product product) {
+        Optional<Product> row = productRepository.findById(id);
+        if (row.isEmpty()) {
+            return false;
+        }
+        product.setId(id);
+        productRepository.save(product);
+        return true;
+    }
 }

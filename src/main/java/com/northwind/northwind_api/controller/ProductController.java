@@ -2,6 +2,7 @@ package com.northwind.northwind_api.controller;
 
 import com.northwind.northwind_api.model.Product;
 import com.northwind.northwind_api.service.ProductService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,6 +42,16 @@ public class ProductController {
     @PostMapping
     Product createProduct(@RequestBody Product product) {
         return productService.createProduct(product);
+    }
+
+    @PutMapping("/{id}")
+    HttpStatus updateProduct(@PathVariable Long id, @RequestBody Product product) {
+        boolean found = productService.updateProduct(id, product);
+        if (found) {
+            return HttpStatus.OK;
+        } else {
+            return HttpStatus.NOT_FOUND;
+        }
     }
 
     @DeleteMapping("/{id}")
