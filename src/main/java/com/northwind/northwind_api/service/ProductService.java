@@ -38,13 +38,12 @@ public class ProductService {
         return productRepository.findByProductNameContainingIgnoreCase(name);
     }
 
-    public boolean updateProduct(Long id, Product product) {
+    public Optional<Product> updateProduct(Long id, Product product) {
         Optional<Product> row = productRepository.findById(id);
         if (row.isEmpty()) {
-            return false;
+            return row;
         }
         product.setId(id);
-        productRepository.save(product);
-        return true;
+        return Optional.of(productRepository.save(product));
     }
 }

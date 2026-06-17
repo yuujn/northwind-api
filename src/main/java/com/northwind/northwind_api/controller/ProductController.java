@@ -45,13 +45,10 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    HttpStatus updateProduct(@PathVariable Long id, @RequestBody Product product) {
-        boolean found = productService.updateProduct(id, product);
-        if (found) {
-            return HttpStatus.OK;
-        } else {
-            return HttpStatus.NOT_FOUND;
-        }
+    ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product product) {
+        return productService.updateProduct(id, product)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
